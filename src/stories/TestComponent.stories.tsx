@@ -1,4 +1,4 @@
-import "../../dist/components/test";
+import "@/dist/components/test";
 
 import { Meta, StoryObj } from "@storybook/web-components";
 import { html } from "lit";

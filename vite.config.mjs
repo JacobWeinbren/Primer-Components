@@ -15,6 +15,11 @@ const components = componentFiles.reduce((entries, file) => {
 
 export default defineConfig({
 	plugins: [fullReload(["dist/**/*.js"])],
+	resolve: {
+		alias: {
+			"@": path.resolve(__dirname, "./"),
+		},
+	},
 	build: {
 		lib: {
 			entry: path.resolve(__dirname, "src", "index.ts"),
