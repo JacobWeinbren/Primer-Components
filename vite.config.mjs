@@ -29,5 +29,6 @@ export default defineConfig({
 				entryFileNames: "components/[name].js",
 			},
 		},
+		minify: true,
 	},
 });
