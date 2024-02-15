@@ -9,11 +9,7 @@ export class TestComponent extends TailwindElement() {
 
 	render() {
 		return html`
-			<p>
-				Hello,
-				<b>${this.name}</b>
-				!
-			</p>
+			<p>Hello, <b>${this.name}</b>!</p>
 			<button
 				class="bg-orange-200 text-yellow-200 p-2 rounded-full text-2xl"
 			>
