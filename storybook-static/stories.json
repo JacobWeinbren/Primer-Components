@@ -1,0 +1,1 @@
+{"v":3,"stories":{"my-element--default":{"id":"my-element--default","name":"Default","title":"My Element","importPath":"./src/stories/TestComponent.stories.tsx","tags":["story"],"kind":"My Element","story":"Default","parameters":{"__id":"my-element--default","docsOnly":false,"fileName":"./src/stories/TestComponent.stories.tsx"}}}}
