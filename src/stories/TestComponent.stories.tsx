@@ -9,13 +9,13 @@ export default {
 		layout: "centered",
 	},
 	argTypes: {
-		onOpen: { action: "onClick" },
+		name: { control: "text" },
 	},
-	render: (args) => html`<test-component></test-component>`,
+	render: (args) =>
+		html`<test-component .name=${args.name}></test-component>`,
 } as Meta;
 
 export const Default: StoryObj = {
-	name: "Default",
 	args: {
 		name: "Lit",
 	},
