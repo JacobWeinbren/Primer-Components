@@ -1,15 +1,22 @@
-import React from "react";
-import { createComponent } from "@lit/react";
-import { TestComponent } from "@/dist/components/test";
+import "../../dist/components/test";
 
-const HelloWorldStory = createComponent({
-	react: React,
-	tagName: "test-component",
-	elementClass: TestComponent,
-});
+import { Meta, StoryObj } from "@storybook/web-components";
+import { html } from "lit";
 
 export default {
-	title: "Example/HelloWorld",
-};
+	title: "My Element",
+	parameters: {
+		layout: "centered",
+	},
+	argTypes: {
+		onOpen: { action: "onClick" },
+	},
+	render: (args) => html`<test-component></test-component>`,
+} as Meta;
 
-export const Primary = () => <HelloWorldStory></HelloWorldStory>;
+export const Default: StoryObj = {
+	name: "Default",
+	args: {
+		name: "Lit",
+	},
+};
