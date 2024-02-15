@@ -1,8 +1,8 @@
-import { T as u, x as m, n as b, t as c } from "../tailwind.element-irVIh4P3.js";
-var f = Object.defineProperty, v = Object.getOwnPropertyDescriptor, a = (p, t, o, r) => {
-  for (var e = r > 1 ? void 0 : r ? v(t, o) : t, n = p.length - 1, l; n >= 0; n--)
-    (l = p[n]) && (e = (r ? l(t, o, e) : l(e)) || e);
-  return r && e && f(t, o, e), e;
+import { T as u, x as m, n as b, t as c } from "../tailwind.element-CoQc3UIb.js";
+var f = Object.defineProperty, v = Object.getOwnPropertyDescriptor, a = (p, t, n, r) => {
+  for (var e = r > 1 ? void 0 : r ? v(t, n) : t, o = p.length - 1, l; o >= 0; o--)
+    (l = p[o]) && (e = (r ? l(t, n, e) : l(e)) || e);
+  return r && e && f(t, n, e), e;
 };
 let s = class extends u() {
   constructor() {
@@ -10,13 +10,9 @@ let s = class extends u() {
   }
   render() {
     return m`
-			<p>
-				Hello,
-				<b>${this.name}</b>
-				!
-			</p>
+			<p>Hello, <b>${this.name}</b>!</p>
 			<button
-				class="bg-orange-200 text-yellow-200 p-2 rounded-full text-2xl"
+				class="bg-orange-200 text-green-200 p-2 rounded-full text-2xl"
 			>
 				Hello world!
 			</button>

@@ -11,7 +11,7 @@ export class TestComponent extends TailwindElement() {
 		return html`
 			<p>Hello, <b>${this.name}</b>!</p>
 			<button
-				class="bg-orange-200 text-yellow-200 p-2 rounded-full text-2xl"
+				class="bg-orange-200 text-green-200 p-2 rounded-full text-2xl"
 			>
 				Hello world!
 			</button>

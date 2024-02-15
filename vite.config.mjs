@@ -1,7 +1,6 @@
 import { defineConfig } from "vite";
 import { glob } from "glob";
 import path from "path";
-import fullReload from "vite-plugin-full-reload";
 
 // Use glob to dynamically find component files and use them as entry points
 const componentsDir = path.resolve(__dirname, "src", "components");
@@ -14,7 +13,6 @@ const components = componentFiles.reduce((entries, file) => {
 }, {});
 
 export default defineConfig({
-	plugins: [fullReload(["dist/**/*.js"])],
 	resolve: {
 		alias: {
 			"@": path.resolve(__dirname, "./"),
