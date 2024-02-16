@@ -22,7 +22,6 @@ const meta: Meta = {
 		"aria-label": {
 			control: "text",
 			description: "Accessibility label",
-			table: { defaultValue: { summary: "Alert Icon" } },
 		},
 	},
 };
@@ -32,7 +31,8 @@ export default meta;
 export const Default: StoryObj = {
 	args: {
 		iconName: "alert",
-		"aria-label": "Alert icon",
-		className: "w-4 h-4 text-fg-danger",
+		"aria-label": "alert icon",
+		className: "text-fg-danger",
+		size: "md",
 	},
 };

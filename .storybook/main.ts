@@ -1,8 +1,5 @@
 module.exports = {
-	stories: [
-		"../src/**/*.stories.mdx",
-		"../src/**/*.stories.@(js|jsx|ts|tsx|svelte)",
-	],
+	stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx|svelte)"],
 	addons: [
 		"@storybook/addon-links",
 		{
@@ -11,7 +8,7 @@ module.exports = {
 				measure: false,
 				actions: false,
 				backgrounds: false,
-				controls: false,
+				controls: true,
 				docs: true,
 				viewport: true,
 				toolbars: false,

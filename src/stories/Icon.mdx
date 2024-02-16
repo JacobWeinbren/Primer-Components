@@ -1,13 +1,30 @@
-import { Canvas, Meta } from "@storybook/blocks";
-
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import Icon from "../components/Icon.svelte";
 import * as Stories from "./Icon.stories";
 
-<Meta of={Stories} />
+<Meta title="Components/Icon" component={Icon} />
 
-# Checkbox
+# Icon Component
 
-A checkbox is a square box that can be activated or deactivated when ticked.
+The `Icon` component leverages GitHub's Primer Octicons to render SVG icons. Icons serve as visual symbols representing ideas, objects, or actions.
 
-Use checkboxes to select one or more options from a list of choices.
+## Usage
+
+To utilise the `Icon` component, specify the `iconName` prop, which should match the name of the desired icon from the Primer Octicons library. Optionally, the `className` prop can be used to add custom styling.
 
 <Canvas of={Stories.Default} />
+
+## Props
+
+<ArgTypes of={Icon} />
+
+## Icon Library
+
+This component utilizes icons from GitHub's Primer Octicons library. Explore the full list of icons and their usage guidelines at:
+
+-   [Primer Octicons Library on GitHub](https://github.com/primer/octicons)
+-   [Primer Octicons Usage Guidelines](https://primer.style/components/icon)
+
+## Accessibility
+
+-   It is recommended to add an `aria-label` attribute to your icon for screen readers, enhancing accessibility.
