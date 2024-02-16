@@ -1,3 +1,5 @@
+import "@/src/common/outputTailwind.css";
+
 export const parameters = {
 	themes: {
 		clearable: false,

@@ -11,24 +11,18 @@ const meta: Meta = {
 		iconName: {
 			control: "text",
 			description:
-				"Icon name - full list avaliable at https://icongr.am/octicons",
+				"Icon name - full list avaliable at https://primer.style/foundations/icons/",
 			table: { defaultValue: { summary: "alert" } },
 		},
 		className: {
 			control: "text",
 			description: "CSS classes to apply",
-			table: { defaultValue: { summary: "" } },
+			table: { defaultValue: { summary: "w-4 h-4 text-fg-danger" } },
 		},
 		"aria-label": {
 			control: "text",
 			description: "Accessibility label",
 			table: { defaultValue: { summary: "Alert Icon" } },
-		},
-		colour: {
-			control: "text",
-			description:
-				"Icon colour - either a default Primer colour or a string",
-			table: { defaultValue: { summary: "fg.danger" } },
 		},
 	},
 };
@@ -39,7 +33,6 @@ export const Default: StoryObj = {
 	args: {
 		iconName: "alert",
 		"aria-label": "Alert icon",
-		className: "",
-		colour: "fg.danger",
+		className: "w-4 h-4 text-fg-danger",
 	},
 };

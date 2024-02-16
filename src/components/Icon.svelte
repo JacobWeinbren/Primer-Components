@@ -1,21 +1,23 @@
 <script lang="ts">
+	import "@/src/common/tailwind.css";
 	import { twMerge } from "tailwind-merge";
-	import { getColorHex } from "@/src/common/colours";
 	import octicons from "@primer/octicons";
 
-	export let iconName;
+	export let iconName: string = "";
 	export let className: string = "";
-	export let colour: string = "";
 
-	function getIconSVG(iconName, className, colour) {
-		const defaultClasses = "my-custom-class";
+	function getIconSVG(iconName, className) {
+		const defaultClasses = "w-4 h-4 fill-current";
 		const mergedClasses = twMerge(defaultClasses, className);
-		const fillColour = getColorHex(colour) || colour;
-		return octicons[iconName]?.toSVG({
+		let svg = octicons[iconName]?.toSVG({
 			class: mergedClasses,
-			fill: fillColour,
 		});
+
+		// Remove width and height attributes from the SVG string
+		svg = svg.replace(/width="[^"]*"/, "").replace(/height="[^"]*"/, "");
+
+		return svg;
 	}
 </script>
 
-<div>{@html getIconSVG(iconName, className, colour)}</div>
+<div class={className}>{@html getIconSVG(iconName, className)}</div>
