@@ -23,7 +23,6 @@
 		"autoprefixer": "^10.4.17",
 		"glob": "^10.3.10",
 		"postcss": "^8.4.35",
-		"prettier": "^3.2.5",
 		"sass": "^1.71.0",
 		"storybook": "^7.6.16",
 		"storybook-addon-themes": "^6.1.0",

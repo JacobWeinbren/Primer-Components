@@ -1,5 +1,4 @@
 export const parameters = {
-	actions: { argTypesRegex: "^on[A-Z].*" },
 	themes: {
 		clearable: false,
 		list: [
