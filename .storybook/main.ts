@@ -5,7 +5,19 @@ module.exports = {
 	],
 	addons: [
 		"@storybook/addon-links",
-		"@storybook/addon-essentials",
+		{
+			name: "@storybook/addon-essentials",
+			options: {
+				measure: false,
+				actions: false,
+				backgrounds: false,
+				controls: false,
+				docs: true,
+				viewport: true,
+				toolbars: false,
+				grid: false,
+			},
+		},
 		"@storybook/addon-a11y",
 		"@whitespace/storybook-addon-html",
 		"storybook-addon-themes",

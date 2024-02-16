@@ -7,7 +7,8 @@
 		"build": "vite build",
 		"watch": "vite build --watch",
 		"lint": "eslint src --fix",
-		"build-storybook": "storybook build",
+		"build:tailwind": "tailwindcss -i ./src/common/tailwind.css -o ./src/common/outputTailwind.css --minify",
+		"build-storybook": "yarn build:tailwind && storybook build",
 		"storybook": "concurrently 'yarn:watch:*'",
 		"watch:storybook": "storybook dev -p 6006",
 		"watch:tailwind": "tailwindcss -i ./src/common/tailwind.css -o ./src/common/outputTailwind.css --minify --watch"

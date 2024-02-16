@@ -7,7 +7,5 @@ addons.setConfig({
 		title: { hidden: true },
 		eject: { hidden: true },
 		copy: { hidden: true },
-		fullscreen: { hidden: true },
-		"storybook/background": { hidden: true },
 	},
 });
