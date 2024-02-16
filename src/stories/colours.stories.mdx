@@ -6,10 +6,6 @@ import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs/blocks";
 
 The colour palette defines the core colors used throughout the UI. They are based on the [Primer Colours](https://primer.style/foundations/color),
 
-## Note
-
-"Emphasis" has been replaced with "Emphasis Highlighted", for consistency.
-
 <ColorPalette>
 	<ColorItem title="fg-default" subtitle="#24292E" colors={["#24292E"]} />
 	<ColorItem title="fg-muted" subtitle="#57606A" colors={["#57606A"]} />
@@ -56,3 +52,7 @@ The colour palette defines the core colors used throughout the UI. They are base
 		colors={["#0968DA"]}
 	/>
 </ColorPalette>
+
+## Note
+
+"Bg/[Item]/Emphasis and Border/[Item]/Emphasis" has been replaced with "highlighted", as they are both the same and this fits tailwind's naming conventions.
