@@ -54,7 +54,7 @@
 
 <Template let:args>
 	<IconButton {...args}>
-		<Alert16 />
+		<Alert16 class="fill-current text-fg-default" />
 	</IconButton>
 </Template>
 
