@@ -1,5 +1,3 @@
-<svelte:options customElement={{ tag: "primer-icon" }} />
-
 <script lang="ts">
 	import "@/src/common/tailwind.css";
 	import { twMerge } from "tailwind-merge";
@@ -29,12 +27,18 @@
 		};
 		const defaultClasses = "fill-current " + sizeClasses[size] || "w-4 h-4";
 		const mergedClasses = twMerge(defaultClasses, className);
-		let svg = octicons[iconName]?.toSVG({
-			class: mergedClasses,
-		});
+		let svg =
+			octicons[iconName]?.toSVG({
+				class: mergedClasses,
+			}) || "";
 
-		// Remove width and height attributes from the SVG string
-		svg = svg.replace(/width="[^"]*"/, "").replace(/height="[^"]*"/, "");
+		// Only manipulate svg if it exists
+		if (svg) {
+			// Remove width and height attributes from the SVG string
+			svg = svg
+				.replace(/width="[^"]*"/, "")
+				.replace(/height="[^"]*"/, "");
+		}
 
 		return svg;
 	}

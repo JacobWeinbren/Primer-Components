@@ -23,6 +23,9 @@ module.exports = {
 		name: "@storybook/svelte-vite",
 		options: {},
 	},
+	svelteOptions: {
+		preprocess: require("../svelte.config.js").preprocess,
+	},
 	docs: {
 		autodocs: true,
 	},
