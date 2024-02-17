@@ -10,18 +10,12 @@ const meta: Meta = {
 	argTypes: {
 		iconName: {
 			control: "text",
-			description:
-				"Icon name - full list avaliable at https://primer.style/foundations/icons/",
-			table: { defaultValue: { summary: "alert" } },
 		},
 		className: {
 			control: "text",
-			description: "CSS classes to apply",
-			table: { defaultValue: { summary: "w-4 h-4 text-fg-danger" } },
 		},
 		"aria-label": {
 			control: "text",
-			description: "Accessibility label",
 		},
 	},
 };
@@ -33,6 +27,6 @@ export const Default: StoryObj = {
 		iconName: "alert",
 		"aria-label": "alert icon",
 		className: "text-fg-danger",
-		size: "md",
+		size: "lg",
 	},
 };

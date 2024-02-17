@@ -35,4 +35,4 @@
 	}
 </script>
 
-<div class={className}>{@html getIconSVG(iconName, className, size)}</div>
+<div>{@html getIconSVG(iconName, className, size)}</div>
