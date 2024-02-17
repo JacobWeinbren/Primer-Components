@@ -18,6 +18,7 @@ module.exports = {
 		"@storybook/addon-a11y",
 		"@whitespace/storybook-addon-html",
 		"storybook-addon-themes",
+		"@storybook/addon-svelte-csf",
 	],
 	framework: {
 		name: "@storybook/svelte-vite",

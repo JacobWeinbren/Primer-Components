@@ -1,26 +1,19 @@
-import { Meta, ArgTypes, Source } from "@storybook/blocks";
-import Icon from "../components/Icon.svelte";
-import * as Stories from "./Icon.stories";
+import { Meta, ArgTypes } from "@storybook/addon-docs/blocks";
+import IconButton from "../components/IconButton.svelte";
 
-<Meta title="Components/Icon" component={Icon} />
+<Meta title="Components/IconButton" component={IconButton} />
 
-# Icon Component
+# IconButton Component
 
-The `Icon` component leverages GitHub's Primer Octicons to render SVG icons. Icons serve as visual symbols representing ideas, objects, or actions.
+The `IconButton` component leverages GitHub's Primer Octicons to render SVG icons. Icons serve as visual symbols representing ideas, objects, or actions.
 
 ## Usage
 
-To utilise the `Icon` component, specify the `iconName` prop, which should match the name of the desired icon from the Primer Octicons library. Optionally, the `className` prop can be used to add custom styling.
-
-<Source
-	language="html"
-	code={`<primer-icon aria-label="alert icon" iconName="alert" className="text-fg-danger" size="lg"/>`}
-	dark={false}
-/>
+To use the `IconButton` component, load in an icon from [Octicons Svelte](https://github.com/metonym/svelte-octicons) which should match the name of the desired icon from the Primer Octicons library. Optionally, the `className` prop can be used to add custom styling.
 
 ## Props
 
-<ArgTypes of={Stories.Default} />
+<ArgTypes of={IconButton} />
 
 ## Icon Library
 
@@ -28,6 +21,7 @@ This component utilizes icons from GitHub's Primer Octicons library. Explore the
 
 -   [Primer Octicons Library on GitHub](https://github.com/primer/octicons)
 -   [Primer Octicons Usage Guidelines](https://primer.style/components/icon)
+-   [Svelte Octicons Library](https://github.com/metonym/svelte-octicons)
 
 ## Accessibility
 
