@@ -39,6 +39,7 @@
 	},
 	"dependencies": {
 		"@primer/octicons": "^19.8.0",
+		"lit-html": "^3.1.2",
 		"tailwind-merge": "^2.2.1",
 		"tailwindcss": "^3.4.1"
 	}

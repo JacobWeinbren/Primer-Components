@@ -1,3 +1,5 @@
+<svelte:options customElement={{ tag: "primer-icon" }} />
+
 <script lang="ts">
 	import "@/src/common/tailwind.css";
 	import { twMerge } from "tailwind-merge";
@@ -15,6 +17,9 @@
 	 * Size of the icon, can be 'sm', 'md', or 'lg'.
 	 */
 	export let size: "sm" | "md" | "lg" = "md";
+
+	// Reactive statement that updates whenever iconName, className, or size changes
+	$: svg = getIconSVG(iconName, className, size);
 
 	function getIconSVG(iconName, className, size) {
 		const sizeClasses = {
@@ -35,4 +40,4 @@
 	}
 </script>
 
-<div>{@html getIconSVG(iconName, className, size)}</div>
+<div>{@html svg}</div>

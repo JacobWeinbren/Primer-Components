@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import { Meta, ArgTypes, Source } from "@storybook/blocks";
 import Icon from "../components/Icon.svelte";
 import * as Stories from "./Icon.stories";
 
@@ -12,11 +12,15 @@ The `Icon` component leverages GitHub's Primer Octicons to render SVG icons. Ico
 
 To utilise the `Icon` component, specify the `iconName` prop, which should match the name of the desired icon from the Primer Octicons library. Optionally, the `className` prop can be used to add custom styling.
 
-<Canvas of={Stories.Default} />
+<Source
+	language="html"
+	code={`<primer-icon aria-label="alert icon" iconName="alert" className="text-fg-danger" size="lg"/>`}
+	dark={false}
+/>
 
 ## Props
 
-<ArgTypes of={Icon} />
+<ArgTypes of={Stories.Default} />
 
 ## Icon Library
 

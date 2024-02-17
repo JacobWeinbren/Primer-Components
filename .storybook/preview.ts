@@ -1,4 +1,5 @@
 import "@/src/common/outputTailwind.css";
+import "../src/components/Icon.svelte";
 
 export const parameters = {
 	themes: {

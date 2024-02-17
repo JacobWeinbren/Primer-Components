@@ -1,9 +1,9 @@
-import Component from "@/src/components/Icon.svelte";
+import Icon from "../components/Icon.svelte";
 import { Meta, StoryObj } from "@storybook/svelte";
 
 const meta: Meta = {
 	title: "Components/Icon",
-	component: Component,
+	component: Icon,
 	parameters: {
 		layout: "centered",
 	},
@@ -16,6 +16,10 @@ const meta: Meta = {
 		},
 		"aria-label": {
 			control: "text",
+		},
+		size: {
+			control: { type: "select" },
+			options: ["sm", "md", "lg"],
 		},
 	},
 };
