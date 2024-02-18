@@ -39,7 +39,7 @@
 		disabled: "opacity-50 cursor-not-allowed",
 	};
 
-	$: defaultClasses = `inline-flex items-center border border-border-default bg-bg-subtle w-8 h-8 rounded-md justify-center ${
+	$: defaultClasses = `inline-flex items-center border border-border-default bg-bg-subtle hover:bg-[#f3f4f6] w-8 h-8 rounded-md justify-center ${
 		sizeClasses[size] || "w-4 h-4"
 	} ${stateClasses[variant] || "opacity-100"}`;
 
