@@ -1,3 +1,3 @@
-import Test from "./components/Test.astro";
+import Test from "./src/components/Test.astro";
 
-export default Test;
+export { Test };
