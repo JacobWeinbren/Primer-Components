@@ -1,0 +1,9 @@
+{
+	"name": "primer-components",
+	"version": "1.0.0",
+	"main": "index.ts",
+	"peerDependencies": {
+		"astro": "^4.8.6",
+		"tailwindcss": "^3.4.3"
+	}
+}

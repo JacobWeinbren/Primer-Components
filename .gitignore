@@ -1,5 +1,5 @@
-node_modules
-.DS_STORE
-storybook-static
-dist
-outputTailwind.css
+.DS_Store
+package-lock.json
+node_modules/
+dist/
+

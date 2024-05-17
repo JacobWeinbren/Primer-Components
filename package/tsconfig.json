@@ -1,0 +1,9 @@
+{
+	"compilerOptions": {
+		"jsx": "preserve",
+		"jsxImportSource": "astro",
+		"types": ["astro/client"]
+	},
+	"include": ["src/**/*.astro"],
+	"exclude": ["node_modules"]
+}

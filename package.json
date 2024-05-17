@@ -1,48 +1,12 @@
 {
-	"name": "primer-components",
-	"version": "1.0.0",
-	"description": "Component Library for Primer Design System",
-	"type": "module",
-	"scripts": {
-		"build": "vite build",
-		"watch": "vite build --watch",
-		"lint": "eslint src --fix",
-		"build:tailwind": "tailwindcss -i ./src/common/tailwind.css -o ./src/common/outputTailwind.css --minify",
-		"build-storybook": "yarn build:tailwind && storybook build",
-		"storybook": "concurrently 'yarn:watch:*'",
-		"watch:storybook": "storybook dev -p 6006",
-		"watch:tailwind": "tailwindcss -i ./src/common/tailwind.css -o ./src/common/outputTailwind.css --minify --watch"
-	},
-	"devDependencies": {
-		"@storybook/addon-a11y": "^7.6.16",
-		"@storybook/addon-essentials": "^7.6.16",
-		"@storybook/addon-links": "^7.6.16",
-		"@storybook/addon-svelte-csf": "^4.1.1",
-		"@storybook/addon-themes": "^7.6.16",
-		"@storybook/react": "^7.6.16",
-		"@storybook/svelte": "^7.6.16",
-		"@storybook/svelte-vite": "^7.6.16",
-		"@sveltejs/vite-plugin-svelte": "^3.0.2",
-		"@whitespace/storybook-addon-html": "^5.1.6",
-		"autoprefixer": "^10.4.17",
-		"concurrently": "^8.2.2",
-		"glob": "^10.3.10",
-		"postcss": "^8.4.35",
-		"postcss-loader": "^8.1.0",
-		"sass": "^1.71.0",
-		"storybook": "^7.6.16",
-		"storybook-addon-themes": "^6.1.0",
-		"storybook-tailwind-dark-mode": "^1.0.22",
-		"svelte": "^4.2.11",
-		"svelte-preprocess": "^5.1.3",
-		"typescript": "^5.3.3",
-		"vite": "^5.1.3"
-	},
-	"dependencies": {
-		"@primer/octicons": "^19.8.0",
-		"lit-html": "^3.1.2",
-		"svelte-octicons": "^18.7.1",
-		"tailwind-merge": "^2.2.1",
-		"tailwindcss": "^3.4.1"
-	}
-}
+    "name": "primer-components",
+    "private": true,
+    "workspaces": [
+      "playground",
+      "package"
+    ],
+    "scripts": {
+      "dev": "cd playground && astro dev",
+      "build": "cd playground && astro build"
+    }
+  }
