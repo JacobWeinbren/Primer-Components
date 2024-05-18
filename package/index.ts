@@ -1,3 +1,3 @@
-import Test from "./src/components/Test.astro";
+import Button from "./src/components/Button.astro";
 
-export { Test };
+export { Button };

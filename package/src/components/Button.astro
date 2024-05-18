@@ -1,0 +1,51 @@
+---
+import { twMerge } from "tailwind-merge";
+
+const { class: className, size, alignContent, ...props } = Astro.props;
+
+// Base Tailwind JIT utility classes for the button
+const baseClasses = `shadow-button-resting inline-flex items-center justify-center gap-2 rounded-[--borderRadius-medium] border bg-[--button-default-bgColor-rest] border-[--button-default-borderColor-rest] text-[--button-default-fgColor] focus-visible:ring-2 focus-visible:ring-[--focus-outlineColor] focus-visible:outline-none text-[0.875rem] font-normal font-semibold leading-[142.85%]`;
+
+// Size-specific classes
+const sizeClasses = {
+	large: "py-[--control-large-paddingBlock] px-[--control-large-paddingInline-spacious] text-[0.875rem] font-semibold leading-[1.25rem] gap-[--control-large-gap]",
+	medium: "py-[--control-medium-paddingBlock] px-[--control-medium-paddingInline-normal] text-[0.875rem] font-semibold leading-[142.85%] gap-[--control-medium-gap]",
+	small: "py-[--control-small-paddingBlock] px-[--control-small-paddingInline-condensed] text-[0.75rem] font-semibold leading-[166.66%] gap-[--control-small-gap]",
+};
+
+// Widths for start alignment
+const startWidths = {
+	large: "w-[11.375rem]",
+	medium: "w-[10.875rem]",
+	small: "w-[9.75rem]",
+};
+
+// Determine alignment classes
+const alignClasses =
+	alignContent === "start"
+		? `justify-start ${startWidths[size]}`
+		: "justify-center";
+
+// Hover state classes
+const hoverClasses =
+	"hover:bg-[#eff3f6] hover:border-[#b1bac4] hover:shadow-[0px_1px_3px_0px_rgba(31,35,40,0.08)]";
+
+// Active state classes
+const activeClasses =
+	"active:bg-[#E7EBEF] active:border-[#D0D7DE] active:shadow-[0px_1px_0px_0px_rgba(31,35,40,0.04)] inset";
+
+// Disabled state classes
+const disabledClasses =
+	"disabled:bg-[#F6F8FA] disabled:border-[#D0D7DE] disabled:text-[#8C959F] disabled:cursor-not-allowed";
+---
+
+<button
+	class={twMerge(
+		`${baseClasses} ${sizeClasses[size]} ${alignClasses} ${props.disabled ? disabledClasses : `${hoverClasses} ${activeClasses}`} ${className}`,
+		"!important"
+	)}
+	{...props}
+	disabled={props.disabled}
+>
+	<slot />
+</button>

@@ -1,12 +1,34 @@
 ---
-import { Test } from "primer-components";
+import { Button } from "primer-components";
+
+const sizes = ["small", "medium", "large"];
+const alignments = ["center", "start"];
+const states = [null, "disabled", "inactive"];
 ---
 
-<html>
+<html data-color-mode="light" data-light-theme="light">
 	<head>
 		<title>Use Custom Component</title>
 	</head>
 	<body>
-		<Test />
+		<div class="grid grid-cols-3 gap-4 p-4">
+			{
+				alignments.map((align) =>
+					states.map((state) =>
+						sizes.map((size) => (
+							<div class="justify-self-center">
+								<Button
+									size={size}
+									alignContent={align}
+									{...(state && { [state]: true })}
+								>
+									Button
+								</Button>
+							</div>
+						))
+					)
+				)
+			}
+		</div>
 	</body>
 </html>
