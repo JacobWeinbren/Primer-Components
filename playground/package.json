@@ -6,6 +6,7 @@
 	"dependencies": {
 		"@astrojs/check": "^0.7.0",
 		"@astrojs/tailwind": "^5.1.0",
+		"@primer/primitives": "^8.2.0",
 		"astro": "^4.8.6",
 		"primer-components": "workspace:*",
 		"tailwindcss": "^3.4.3",

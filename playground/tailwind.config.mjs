@@ -1,7 +1,4 @@
-import customPlugin from "primer-components/tailwind-plugin.js";
-
-// Check the environment variable
-const isDev = process.env.NODE_ENV === "development";
+import primer from "primer-components/tailwind";
 
 export default {
 	content: [
@@ -11,5 +8,5 @@ export default {
 	theme: {
 		extend: {},
 	},
-	plugins: [customPlugin],
+	plugins: [primer],
 };

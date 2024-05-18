@@ -2,4 +2,18 @@
 
 ---
 
-<div class="text-green-500">Hello from Primer Components!</div>
+<html data-color-mode="dark" data-dark-theme="dark_colorblind">
+	<body>
+		<div class="ml-base-size-6 font-base-text-weight-semibold">
+			Hello from Primer Components!
+		</div>
+		<div class="text-[--display-yellow-fgColor]">
+			This text should use the dark colorblind primary text color.
+		</div>
+		<div
+			class="bg-blue-500 viewportRange-narrow:bg-red-500 viewportRange-narrowLandscape:bg-green-500 viewportRange-regular:bg-yellow-500 viewportRange-wide:bg-purple-500 viewportRange-portrait:bg-pink-500 viewportRange-landscape:bg-orange-500"
+		>
+			Test viewport ranges
+		</div>
+	</body>
+</html>
