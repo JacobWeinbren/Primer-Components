@@ -1,11 +1,16 @@
 ---
 import { twMerge } from "tailwind-merge";
+import octicons from "@primer/octicons";
+import spinnerSVG from "../assets/Spinner.svg?raw";
 
 const {
 	class: className,
-	size,
-	alignContent,
+	size = "medium",
+	alignContent = "center",
 	variant = "secondary",
+	leadingVisual,
+	trailingVisual,
+	trailingAction,
 	...props
 } = Astro.props;
 
@@ -61,6 +66,18 @@ const stateClasses = props.disabled
 	: props.inactive
 		? "bg-[--button-inactive-bgColor] text-[--button-inactive-fgColor]"
 		: variantClasses[variant].active;
+
+const getIconSVG = (iconName) => {
+	if (iconName === "spinner") {
+		const spinnerClass =
+			variant === "primary"
+				? "text-[--button-primary-fgColor-rest]"
+				: "text-[--button-default-fgColor-rest]";
+		return `<span class="${spinnerClass}">${spinnerSVG}</span>`;
+	}
+	const svgClass = variant === "invisible" ? "" : "fill-current";
+	return octicons[iconName]?.toSVG({ class: svgClass }) || "";
+};
 ---
 
 <button
@@ -70,5 +87,23 @@ const stateClasses = props.disabled
 	{...props}
 	disabled={props.disabled}
 >
-	<slot />
+	{
+		leadingVisual && (
+			<span class="flex-shrink-0" set:html={getIconSVG(leadingVisual)} />
+		)
+	}
+	<slot class="flex-grow" />
+	{
+		trailingVisual && (
+			<span class="flex-shrink-0" set:html={getIconSVG(trailingVisual)} />
+		)
+	}
+	{
+		trailingAction && (
+			<span
+				class="ml-auto flex-shrink-0"
+				set:html={getIconSVG(trailingAction)}
+			/>
+		)
+	}
 </button>

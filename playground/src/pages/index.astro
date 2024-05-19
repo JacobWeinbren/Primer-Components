@@ -1,10 +1,19 @@
 ---
 import { Button } from "primer-components";
+import octicons from "@primer/octicons";
 
 const variants = ["primary", "secondary", "danger", "invisible"];
 const sizes = ["small", "medium", "large"];
 const alignments = ["center", "start"];
 const states = [null, "disabled", "inactive"];
+
+const searchIconSVG = octicons["search"].toSVG({ class: "text-inherit" });
+const arrowDownIconSVG = octicons["arrow-down"].toSVG({
+	class: "text-inherit",
+});
+const issueOpenedIconSVG = octicons["issue-opened"].toSVG({
+	class: "text-inherit",
+});
 ---
 
 <html data-color-mode="light" data-light-theme="light">
@@ -23,6 +32,9 @@ const states = [null, "disabled", "inactive"];
 										variant={variant}
 										size={size}
 										alignContent={align}
+										leadingVisual="search"
+										trailingVisual="arrow-down"
+										trailingAction="spinner"
 										{...(state && { [state]: true })}
 									>
 										Button

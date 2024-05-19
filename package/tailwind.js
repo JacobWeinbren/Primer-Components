@@ -19,7 +19,7 @@ function extractCSSVariables(filePaths) {
 	return cssVariables;
 }
 
-module.exports = plugin(function ({ addBase, addComponents }) {
+module.exports = plugin(function ({ addBase, addComponents, addUtilities }) {
 	const themes = [
 		{
 			name: "dark-colorblind",
@@ -235,6 +235,17 @@ module.exports = plugin(function ({ addBase, addComponents }) {
 		},
 		"@media (orientation: landscape)": {
 			"--viewportRange-landscape": true,
+		},
+	});
+
+	// Adding the spin animation utility
+	addUtilities({
+		"@keyframes spin": {
+			from: { transform: "rotate(0deg)" },
+			to: { transform: "rotate(360deg)" },
+		},
+		".spin": {
+			animation: "spin 1s linear infinite",
 		},
 	});
 });

@@ -6,6 +6,7 @@
 	"dependencies": {
 		"@astrojs/check": "^0.7.0",
 		"@astrojs/tailwind": "^5.1.0",
+		"@primer/octicons": "^19.9.0",
 		"@primer/primitives": "^8.2.0",
 		"astro": "^4.8.6",
 		"primer-components": "workspace:*",
@@ -18,5 +19,8 @@
 		"build": "astro check && astro build",
 		"preview": "astro preview",
 		"astro": "astro"
+	},
+	"devDependencies": {
+		"@types/primer__octicons": "^19.6.3"
 	}
 }

@@ -1,5 +1,6 @@
 {
 	"compilerOptions": {
+		"allowSyntheticDefaultImports": true,
 		"jsx": "preserve",
 		"jsxImportSource": "astro",
 		"types": ["astro/client"]
