@@ -1,0 +1,34 @@
+---
+import { Button } from "primer-components";
+
+const variants = ["primary", "secondary", "danger", "invisible"];
+const sizes = ["small", "medium", "large"];
+const alignments = ["center", "start"];
+const states = [null, "disabled", "inactive"];
+---
+
+<div class="flex flex-wrap gap-4 p-4">
+	{
+		variants.map((variant) =>
+			alignments.map((align) =>
+				states.map((state) =>
+					sizes.map((size) => (
+						<div class="flex justify-center items-center">
+							<Button
+								variant={variant}
+								size={size}
+								alignContent={align}
+								leadingVisual="search"
+								trailingVisual="arrow-down"
+								trailingAction="spinner"
+								{...(state && { [state]: true })}
+							>
+								Button
+							</Button>
+						</div>
+					))
+				)
+			)
+		)
+	}
+</div>
