@@ -237,44 +237,4 @@ module.exports = plugin(function ({ addBase, addComponents }) {
 			"--viewportRange-landscape": true,
 		},
 	});
-
-	// Adding custom shadow resting states based on themes
-	addComponents({
-		'[data-color-mode="dark"][data-dark-theme="dark_colorblind"] .shadow-button-resting':
-			{
-				boxShadow: "var(--button-default-shadow-resting)",
-			},
-		'[data-color-mode="dark"][data-dark-theme="dark_dimmed"] .shadow-button-resting':
-			{
-				boxShadow: "var(--button-default-shadow-resting)",
-			},
-		'[data-color-mode="dark"][data-dark-theme="dark_high_contrast"] .shadow-button-resting':
-			{
-				boxShadow: "var(--button-default-shadow-resting)",
-			},
-		'[data-color-mode="dark"][data-dark-theme="dark_tritanopia"] .shadow-button-resting':
-			{
-				boxShadow: "var(--button-default-shadow-resting)",
-			},
-		'[data-color-mode="dark"][data-dark-theme="dark"] .shadow-button-resting':
-			{
-				boxShadow: "var(--button-default-shadow-resting)",
-			},
-		'[data-color-mode="light"][data-light-theme="light_colorblind"] .shadow-button-resting':
-			{
-				boxShadow: "var(--button-default-shadow-resting)",
-			},
-		'[data-color-mode="light"][data-light-theme="light_high_contrast"] .shadow-button-resting':
-			{
-				boxShadow: "var(--button-default-shadow-resting)",
-			},
-		'[data-color-mode="light"][data-light-theme="light_tritanopia"] .shadow-button-resting':
-			{
-				boxShadow: "var(--button-default-shadow-resting)",
-			},
-		'[data-color-mode="light"][data-light-theme="light"] .shadow-button-resting':
-			{
-				boxShadow: "var(--button-default-shadow-resting)",
-			},
-	});
 });

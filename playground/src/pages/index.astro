@@ -1,6 +1,7 @@
 ---
 import { Button } from "primer-components";
 
+const variants = ["primary", "secondary", "danger", "invisible"];
 const sizes = ["small", "medium", "large"];
 const alignments = ["center", "start"];
 const states = [null, "disabled", "inactive"];
@@ -11,21 +12,24 @@ const states = [null, "disabled", "inactive"];
 		<title>Use Custom Component</title>
 	</head>
 	<body>
-		<div class="grid grid-cols-3 gap-4 p-4">
+		<div class="flex flex-wrap gap-4 p-4">
 			{
-				alignments.map((align) =>
-					states.map((state) =>
-						sizes.map((size) => (
-							<div class="justify-self-center">
-								<Button
-									size={size}
-									alignContent={align}
-									{...(state && { [state]: true })}
-								>
-									Button
-								</Button>
-							</div>
-						))
+				variants.map((variant) =>
+					alignments.map((align) =>
+						states.map((state) =>
+							sizes.map((size) => (
+								<div class="flex justify-center items-center">
+									<Button
+										variant={variant}
+										size={size}
+										alignContent={align}
+										{...(state && { [state]: true })}
+									>
+										Button
+									</Button>
+								</div>
+							))
+						)
 					)
 				)
 			}

@@ -1,48 +1,71 @@
 ---
 import { twMerge } from "tailwind-merge";
 
-const { class: className, size, alignContent, ...props } = Astro.props;
+const {
+	class: className,
+	size,
+	alignContent,
+	variant = "secondary",
+	...props
+} = Astro.props;
 
-// Base Tailwind JIT utility classes for the button
-const baseClasses = `shadow-button-resting inline-flex items-center justify-center gap-2 rounded-[--borderRadius-medium] border bg-[--button-default-bgColor-rest] border-[--button-default-borderColor-rest] text-[--button-default-fgColor] focus-visible:ring-2 focus-visible:ring-[--focus-outlineColor] focus-visible:outline-none text-[0.875rem] font-normal font-semibold leading-[142.85%]`;
-
-// Size-specific classes
-const sizeClasses = {
-	large: "py-[--control-large-paddingBlock] px-[--control-large-paddingInline-spacious] text-[0.875rem] font-semibold leading-[1.25rem] gap-[--control-large-gap]",
-	medium: "py-[--control-medium-paddingBlock] px-[--control-medium-paddingInline-normal] text-[0.875rem] font-semibold leading-[142.85%] gap-[--control-medium-gap]",
-	small: "py-[--control-small-paddingBlock] px-[--control-small-paddingInline-condensed] text-[0.75rem] font-semibold leading-[166.66%] gap-[--control-small-gap]",
+// Consolidated variant-specific classes with state handling
+const variantClasses = {
+	primary: {
+		base: `bg-[--button-primary-bgColor-rest] border-[--button-primary-borderColor-rest] text-[--button-primary-fgColor-rest]`,
+		disabled:
+			"disabled:bg-[--button-primary-bgColor-disabled] disabled:border-[--button-primary-borderColor-disabled] disabled:text-[--button-primary-fgColor-disabled] disabled:cursor-not-allowed",
+		active: "hover:text-[--button-primary-fgColor-rest] hover:bg-[--button-primary-bgColor-hover] hover:border-[--button-primary-borderColor-hover] hover:[box-shadow:var(--shadow-resting-small),var(--shadow-resting-xsmall)] active:bg-[--button-primary-bgColor-active] active:border-[--button-primary-borderColor-hover] active:[box-shadow:var(--shadow-inset)]",
+	},
+	secondary: {
+		base: `bg-[--button-default-bgColor-rest] border-[--button-default-borderColor-rest] text-[--button-default-fgColor-rest]`,
+		disabled:
+			"disabled:bg-[--button-default-bgColor-rest] disabled:border-[--button-default-borderColor-disabled] disabled:text-[--fgColor-disabled] disabled:cursor-not-allowed",
+		active: "hover:text-[--button-default-fgColor-rest] hover:bg-[--button-default-bgColor-rest] hover:border-[--button-default-borderColor-hover] hover:[box-shadow:var(--shadow-resting-small),var(--shadow-resting-xsmall)] active:bg-[--button-default-bgColor-active] active:border-[--button-default-borderColor-hover] active:[box-shadow:var(--shadow-inset)]",
+	},
+	danger: {
+		base: `bg-[--button-default-bgColor-rest] border-[--button-danger-borderColor-rest] text-[--button-danger-fgColor-rest]`,
+		disabled:
+			"disabled:bg-[--button-danger-bgColor-disabled] disabled:border-transparent disabled:text-[--button-danger-fgColor-disabled] disabled:cursor-not-allowed",
+		active: "hover:text-[--button-danger-fgColor-hover] hover:bg-[--button-danger-bgColor-hover] hover:border-[--button-danger-borderColor-hover] hover:[box-shadow:var(--shadow-resting-small),var(--shadow-resting-xsmall)] active:bg-[--button-danger-bgColor-active] active:border-[--button-danger-borderColor-hover] active:[box-shadow:var(--shadow-inset)]",
+	},
+	invisible: {
+		base: `bg-[--button-invisible-bgColor-rest] border-transparent text-[--fgColor-link] [box-shadow:none]`,
+		disabled:
+			"disabled:bg-[--button-invisible-bgColor-disabled] disabled:border-transparent disabled:text-[--button-invisible-fgColor-disabled] disabled:cursor-not-allowed",
+		active: "hover:text-[--button-invisible-fgColor-hover] hover:bg-[--button-invisible-bgColor-hover] hover:border-transparent active:bg-[--button-invisible-bgColor-active] active:border-transparent",
+	},
 };
 
-// Widths for start alignment
+const baseClasses = `border [box-shadow:var(--button-default-shadow-resting)] inline-flex items-center justify-center gap-2 rounded-[--borderRadius-medium] focus-visible:ring-2 focus-visible:ring-[--focus-outlineColor] focus-visible:outline-none text-[0.875rem] font-semibold leading-[142.85%]`;
+
+const sizeClasses = {
+	large: "py-[--control-large-paddingBlock] px-[--control-large-paddingInline-spacious] text-[0.875rem] leading-[1.25rem] gap-[--control-large-gap]",
+	medium: "py-[--control-medium-paddingBlock] px-[--control-medium-paddingInline-normal] text-[0.875rem] leading-[142.85%] gap-[--control-medium-gap]",
+	small: "py-[--control-small-paddingBlock] px-[--control-small-paddingInline-condensed] text-[0.75rem] leading-[166.66%] gap-[--control-small-gap]",
+};
+
 const startWidths = {
 	large: "w-[11.375rem]",
 	medium: "w-[10.875rem]",
 	small: "w-[9.75rem]",
 };
 
-// Determine alignment classes
 const alignClasses =
 	alignContent === "start"
 		? `justify-start ${startWidths[size]}`
 		: "justify-center";
 
-// Hover state classes
-const hoverClasses =
-	"hover:bg-[#eff3f6] hover:border-[#b1bac4] hover:shadow-[0px_1px_3px_0px_rgba(31,35,40,0.08)]";
-
-// Active state classes
-const activeClasses =
-	"active:bg-[#E7EBEF] active:border-[#D0D7DE] active:shadow-[0px_1px_0px_0px_rgba(31,35,40,0.04)] inset";
-
-// Disabled state classes
-const disabledClasses =
-	"disabled:bg-[#F6F8FA] disabled:border-[#D0D7DE] disabled:text-[#8C959F] disabled:cursor-not-allowed";
+const stateClasses = props.disabled
+	? variantClasses[variant].disabled
+	: props.inactive
+		? "bg-[--button-inactive-bgColor] text-[--button-inactive-fgColor]"
+		: variantClasses[variant].active;
 ---
 
 <button
 	class={twMerge(
-		`${baseClasses} ${sizeClasses[size]} ${alignClasses} ${props.disabled ? disabledClasses : `${hoverClasses} ${activeClasses}`} ${className}`,
-		"!important"
+		`${baseClasses} ${variantClasses[variant].base} ${sizeClasses[size]} ${alignClasses} ${stateClasses} ${className}`
 	)}
 	{...props}
 	disabled={props.disabled}
