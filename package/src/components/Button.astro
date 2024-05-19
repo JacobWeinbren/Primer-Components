@@ -70,7 +70,7 @@ const stateClasses = props.disabled
 const getIconSVG = (iconName) => {
 	if (iconName === "spinner") {
 		const spinnerClass =
-			variant === "primary"
+			variant === "primary" && !props.inactive
 				? "text-[--button-primary-fgColor-rest]"
 				: "text-[--button-default-fgColor-rest]";
 		return `<span class="${spinnerClass}">${spinnerSVG}</span>`;
