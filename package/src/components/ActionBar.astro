@@ -1,90 +1,61 @@
 ---
-
+// Import a unique ID generator
+import { v4 as uuidv4 } from 'uuid';
+const uniqueId = uuidv4(); // Generates a unique ID for each component instance
 ---
 
-<div class="relative flex p-0 px-5 toolbarWrapper gap-2">
-	<button
-		class="flex-none px-4 py-2 font-bold text-white bg-blue-500 rounded button hover:bg-blue-700"
-		data-targetid="save">Save</button
-	>
-	<button
-		class="flex-none px-4 py-2 font-bold text-white bg-blue-500 rounded button hover:bg-blue-700"
-		data-targetid="upload">Upload</button
-	>
-	<button
-		class="flex-none px-4 py-2 font-bold text-white bg-blue-500 rounded button hover:bg-blue-700"
-		data-targetid="download">Download</button
-	>
-	<button
-		class="flex-none px-4 py-2 font-bold text-white bg-blue-500 rounded button hover:bg-blue-700"
-		data-targetid="send">Send</button
-	>
-	<button
-		class="flex-none px-4 py-2 font-bold text-white bg-blue-500 rounded button hover:bg-blue-700"
-		data-targetid="star">Star</button
-	>
-	<button
-		class="flex-none px-4 py-2 font-bold text-white bg-blue-500 rounded button hover:bg-blue-700"
-		data-targetid="archive">Archive</button
-	>
-	<button
-		class="flex-none px-4 py-2 font-bold text-white bg-blue-500 rounded button hover:bg-blue-700"
-		data-targetid="delete">Delete</button
-	>
-	<div class="relative flex items-center justify-end">
-		<div
-			class="absolute right-0 flex flex-col gap-2 hidden mt-2 bg-white overflowMenu top-full"
-		>
-			<!-- Items will be dynamically inserted here -->
-		</div>
-		<button
-			class="px-4 py-2 font-bold text-white bg-blue-500 rounded toggleOverflowMenu hover:bg-blue-700 whitespace-nowrap"
-		>
-			Toggle Overflow
-		</button>
-	</div>
+<div class="flex items-center overflow-hidden border mainMenu" data-unique-id={uniqueId}>
+	<!-- Sub-container for items 1-5 that allows wrapping -->
+	{
+		["item 1", "item 2", "item 3", "item 4", "item 5"].map((item, index) => (
+			<div id={`main-item-${index}-${uniqueId}`} class="m-1.5 flex-shrink-0 min-w-fit">
+				{item}
+			</div>
+		))
+	}
+	<a href="/link-for-item-6" class="m-1.5 flex-shrink-0 min-w-fit" id={`link-item-6-${uniqueId}`}>Item 6</a>
+</div>
+
+<div class="flex flex-col overflowMenu">
+	{
+		["item 1", "item 2", "item 3", "item 4", "item 5"].map((item, index) => (
+			<div id={`overflow-item-${index}-${uniqueId}`} class="m-1.5 hidden">
+				{item}
+			</div>
+		))
+	}
 </div>
 
 <script>
 	import $ from "jquery";
-
 	$(document).ready(function () {
-		const $toolbar = $(".toolbarWrapper");
-		const $overflowMenu = $(".overflowMenu");
-		const $toggleButton = $(".toggleOverflowMenu");
+		const mainMenu = $(".mainMenu");
+		const overflowItems = $(".overflowMenu div");
 
-		function updateVisibility() {
-			let toolbarWidth = $toolbar.width();
-			let toggleButtonWidth = $toggleButton.outerWidth(true);
-			let availableWidth = toolbarWidth - toggleButtonWidth;
-			let usedWidth = 0;
-			let overflowItems = [];
+		function checkVisibility() {
+			const items = mainMenu.children("div");
+			let totalItemsWidth = 0;
+			items.each(function () {
+				totalItemsWidth += $(this).outerWidth(true);
+			});
 
-			$toolbar
-				.children("button:not(.toggleOverflowMenu)")
-				.each(function () {
-					let buttonWidth = $(this).outerWidth(true);
-					usedWidth += buttonWidth;
-					if (usedWidth > availableWidth) {
-						overflowItems.push(this);
-						$(this).addClass("hidden");
-					} else {
-						$(this).removeClass("hidden");
-					}
-				});
+			let cumulativeWidth = 0;
+			items.each(function (index) {
+				const mainItem = $(this);
+				const overflowItem = overflowItems.eq(index);
+				cumulativeWidth += mainItem.outerWidth(true);
 
-			$overflowMenu.empty();
-			overflowItems.forEach((item) => {
-				let $clonedItem = $(item).clone().removeClass("hidden");
-				$overflowMenu.append($clonedItem);
+				if (cumulativeWidth > mainMenu.width()) {
+					mainItem.addClass("hidden");
+					overflowItem.removeClass("hidden");
+				} else {
+					mainItem.removeClass("hidden");
+					overflowItem.addClass("hidden");
+				}
 			});
 		}
 
-		$toggleButton.click(function () {
-			$overflowMenu.toggleClass("hidden");
-		});
-
-		$(window).resize(updateVisibility);
-		updateVisibility();
+		const resizeObserver = new ResizeObserver(checkVisibility);
+		resizeObserver.observe(mainMenu[0]);
 	});
 </script>
