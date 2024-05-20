@@ -2,6 +2,7 @@
 import { twMerge } from "tailwind-merge";
 import octicons from "@primer/octicons";
 import spinnerSVG from "../assets/Spinner.svg?raw";
+import Icon from "./Icon.astro";
 
 const {
 	class: className,
@@ -67,43 +68,56 @@ const stateClasses = props.disabled
 		? "bg-[--button-inactive-bgColor] text-[--button-inactive-fgColor]"
 		: variantClasses[variant].active;
 
-const getIconSVG = (iconName) => {
+const getIconClass = (iconName) => {
 	if (iconName === "spinner") {
-		const spinnerClass =
-			variant === "primary" && !props.inactive
-				? "text-[--button-primary-fgColor-rest]"
-				: "text-[--button-default-fgColor-rest]";
-		return `<span class="${spinnerClass}">${spinnerSVG}</span>`;
+		if (variant === "primary" && !props.inactive) {
+			return "text-[--button-primary-fgColor-rest]";
+		} else if (variant === "danger" && !props.inactive) {
+			return "text-[--button-default-fgColor-rest] group-hover:text-[--button-danger-fgColor-hover]";
+		} else {
+			return "text-[--button-default-fgColor-rest]";
+		}
 	}
-	const svgClass = variant === "invisible" ? "" : "fill-current";
-	return octicons[iconName]?.toSVG({ class: svgClass }) || "";
+	return variant === "invisible" ? "" : "fill-current";
 };
 ---
 
 <button
 	class={twMerge(
-		`${baseClasses} ${variantClasses[variant].base} ${sizeClasses[size]} ${alignClasses} ${stateClasses} ${className}`
+		`group ${baseClasses} ${variantClasses[variant].base} ${sizeClasses[size]} ${alignClasses} ${stateClasses} ${className}`
 	)}
 	{...props}
 	disabled={props.disabled}
 >
 	{
 		leadingVisual && (
-			<span class="flex-shrink-0" set:html={getIconSVG(leadingVisual)} />
+			<span class="flex-shrink-0">
+				<Icon
+					iconName={leadingVisual}
+					iconClass={getIconClass(leadingVisual)}
+				/>
+			</span>
 		)
 	}
 	<slot class="flex-grow" />
 	{
 		trailingVisual && (
-			<span class="flex-shrink-0" set:html={getIconSVG(trailingVisual)} />
+			<span class="flex-shrink-0">
+				<Icon
+					iconName={trailingVisual}
+					iconClass={getIconClass(trailingVisual)}
+				/>
+			</span>
 		)
 	}
 	{
 		trailingAction && (
-			<span
-				class="ml-auto flex-shrink-0"
-				set:html={getIconSVG(trailingAction)}
-			/>
+			<span class="ml-auto flex-shrink-0">
+				<Icon
+					iconName={trailingAction}
+					iconClass={getIconClass(trailingAction)}
+				/>
+			</span>
 		)
 	}
 </button>
