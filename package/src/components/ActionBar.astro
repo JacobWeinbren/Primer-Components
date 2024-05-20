@@ -4,16 +4,18 @@ import { v4 as uuidv4 } from 'uuid';
 const uniqueId = uuidv4(); // Generates a unique ID for each component instance
 ---
 
-<div class="flex items-center overflow-hidden border mainMenu" data-unique-id={uniqueId}>
+<div class="w-full outerMenu" data-unique-id={uniqueId}>
+<div class="inline-flex items-center overflow-hidden border mainMenu">
 	<!-- Sub-container for items 1-5 that allows wrapping -->
 	{
 		["item 1", "item 2", "item 3", "item 4", "item 5"].map((item, index) => (
-			<div id={`main-item-${index}-${uniqueId}`} class="m-1.5 flex-shrink-0 min-w-fit">
+			<div class="m-1.5 flex-shrink-0 min-w-fit">
 				{item}
 			</div>
 		))
 	}
-	<a href="/link-for-item-6" class="m-1.5 flex-shrink-0 min-w-fit" id={`link-item-6-${uniqueId}`}>Item 6</a>
+	<a href="/link-for-item-6" class="m-1.5 flex-shrink-0 min-w-fit">Item 6</a>
+</div>
 </div>
 
 <div class="flex flex-col overflowMenu">
@@ -29,33 +31,32 @@ const uniqueId = uuidv4(); // Generates a unique ID for each component instance
 <script>
 	import $ from "jquery";
 	$(document).ready(function () {
-		const mainMenu = $(".mainMenu");
-		const overflowItems = $(".overflowMenu div");
+		const uniqueId = $('.outerMenu').data('unique-id');
+		const mainMenu = $(`.outerMenu[data-unique-id="${uniqueId}"] .mainMenu`);
+		const overflowItems = $(`.overflowMenu div[id^="overflow-item-"][id$="${uniqueId}"]`);
+		const linkItem = mainMenu.children("a");
 
 		function checkVisibility() {
-			const items = mainMenu.children("div");
-			let totalItemsWidth = 0;
-			items.each(function () {
-				totalItemsWidth += $(this).outerWidth(true);
-			});
+			let availableWidth = $(`.outerMenu[data-unique-id="${uniqueId}"]`).outerWidth(true) - linkItem.outerWidth(true);
+			let usedWidth = 0;
 
-			let cumulativeWidth = 0;
-			items.each(function (index) {
-				const mainItem = $(this);
-				const overflowItem = overflowItems.eq(index);
-				cumulativeWidth += mainItem.outerWidth(true);
-
-				if (cumulativeWidth > mainMenu.width()) {
-					mainItem.addClass("hidden");
-					overflowItem.removeClass("hidden");
+			mainMenu.children("div").each(function (index) {
+				const item = $(this);
+				const itemWidth = item.outerWidth(true);
+				if (usedWidth + itemWidth <= availableWidth) {
+					item.removeClass("hidden");
+					overflowItems.eq(index).addClass("hidden");
+					usedWidth += itemWidth;
 				} else {
-					mainItem.removeClass("hidden");
-					overflowItem.addClass("hidden");
+					item.addClass("hidden");
+					overflowItems.eq(index).removeClass("hidden");
 				}
 			});
 		}
 
 		const resizeObserver = new ResizeObserver(checkVisibility);
-		resizeObserver.observe(mainMenu[0]);
+		resizeObserver.observe($(`.outerMenu[data-unique-id="${uniqueId}"]`)[0]);
+
+		checkVisibility();
 	});
 </script>
