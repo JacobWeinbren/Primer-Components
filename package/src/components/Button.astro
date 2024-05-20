@@ -72,7 +72,7 @@ const getIconClass = (iconName) => {
 	if (iconName === "spinner") {
 		if (variant === "primary" && !props.inactive) {
 			return "text-[--button-primary-fgColor-rest]";
-		} else if (variant === "danger" && !props.inactive) {
+		} else if (variant === "danger" && !props.inactive && !props.disabled) {
 			return "text-[--button-default-fgColor-rest] group-hover:text-[--button-danger-fgColor-hover]";
 		} else {
 			return "text-[--button-default-fgColor-rest]";
