@@ -9,30 +9,6 @@ const overflowOptions = [true, false];
 ---
 
 <div class="space-y-4">
-	{
-		sizes.map((size) =>
-			overflowOptions.map((overflow) => (
-				<div>
-					<ActionBar size={size}>
-						<ActionBarItem slot="items">
-							<Icon iconName="alert" />
-						</ActionBarItem>
-						<ActionBarItem slot="items">
-							<Icon iconName="archive" />
-						</ActionBarItem>
-						<ActionBarDivider slot="items" />
-						<ActionBarItem slot="items">
-							<Icon iconName="arrow-down" />
-						</ActionBarItem>
-						<ActionBarItem slot="items">
-							<Icon iconName="bell" />
-						</ActionBarItem>
-						<ActionBarItem slot="items">
-							<Icon iconName="bookmark" />
-						</ActionBarItem>
-					</ActionBar>
-				</div>
-			))
-		)
-	}
+	<ActionBar>
+	</ActionBar>
 </div>

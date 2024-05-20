@@ -1,77 +1,90 @@
 ---
-import { twMerge } from "tailwind-merge";
-import Icon from "./Icon.astro";
-import ActionBarItem from "./ActionBarItem.astro";
 
-const { size = "medium", class: className, ...props } = Astro.props;
-
-const baseClasses = "m-2 inline-flex items-center";
-const sizeClasses = { large: "h-10", medium: "h-8", small: "h-7" };
 ---
 
-<div
-	x-data="{ isOpen: false, itemsVisibility: {} }"
-	class={twMerge(
-		`action-bar ${baseClasses} ${sizeClasses[size]} ${className}`
-	)}
-	role="toolbar"
-	{...props}
->
-	<div class="flex justify-end items-center relative">
-		<slot name="items" />
-		<ActionBarItem class="overflow-menu-kebab" @click="isOpen = !isOpen">
-			<Icon iconName="kebab-horizontal" />
-		</ActionBarItem>
+<div class="relative flex p-0 px-5 toolbarWrapper gap-2">
+	<button
+		class="flex-none px-4 py-2 font-bold text-white bg-blue-500 rounded button hover:bg-blue-700"
+		data-targetid="save">Save</button
+	>
+	<button
+		class="flex-none px-4 py-2 font-bold text-white bg-blue-500 rounded button hover:bg-blue-700"
+		data-targetid="upload">Upload</button
+	>
+	<button
+		class="flex-none px-4 py-2 font-bold text-white bg-blue-500 rounded button hover:bg-blue-700"
+		data-targetid="download">Download</button
+	>
+	<button
+		class="flex-none px-4 py-2 font-bold text-white bg-blue-500 rounded button hover:bg-blue-700"
+		data-targetid="send">Send</button
+	>
+	<button
+		class="flex-none px-4 py-2 font-bold text-white bg-blue-500 rounded button hover:bg-blue-700"
+		data-targetid="star">Star</button
+	>
+	<button
+		class="flex-none px-4 py-2 font-bold text-white bg-blue-500 rounded button hover:bg-blue-700"
+		data-targetid="archive">Archive</button
+	>
+	<button
+		class="flex-none px-4 py-2 font-bold text-white bg-blue-500 rounded button hover:bg-blue-700"
+		data-targetid="delete">Delete</button
+	>
+	<div class="relative flex items-center justify-end">
 		<div
-			x-show="isOpen"
-			class="overflow-menu rounded-lg shadow-md h-20 absolute flex items-start flex-col bg-white w-48 right-0 top-full"
-			role="menu"
+			class="absolute right-0 flex flex-col gap-2 hidden mt-2 bg-white overflowMenu top-full"
 		>
-			<template x-for="item in Object.keys(itemsVisibility)" :key="item">
-				<div
-					x-show="!itemsVisibility[item]"
-					class="p-2 hover:bg-gray-100 cursor-pointer"
-					@click="isOpen = false"
-				>
-					<span x-text="item"></span>
-				</div>
-			</template>
+			<!-- Items will be dynamically inserted here -->
 		</div>
+		<button
+			class="px-4 py-2 font-bold text-white bg-blue-500 rounded toggleOverflowMenu hover:bg-blue-700 whitespace-nowrap"
+		>
+			Toggle Overflow
+		</button>
 	</div>
 </div>
 
 <script>
-	import "alpinejs";
+	import $ from "jquery";
 
-	document.addEventListener("alpine:init", () => {
-		Alpine.data("overflowMenu", () => ({
-			isOpen: false,
-			itemsVisibility: {},
-			init() {
-				this.updateVisibility();
-				window.addEventListener("resize", () => {
-					this.updateVisibility();
+	$(document).ready(function () {
+		const $toolbar = $(".toolbarWrapper");
+		const $overflowMenu = $(".overflowMenu");
+		const $toggleButton = $(".toggleOverflowMenu");
+
+		function updateVisibility() {
+			let toolbarWidth = $toolbar.width();
+			let toggleButtonWidth = $toggleButton.outerWidth(true);
+			let availableWidth = toolbarWidth - toggleButtonWidth;
+			let usedWidth = 0;
+			let overflowItems = [];
+
+			$toolbar
+				.children("button:not(.toggleOverflowMenu)")
+				.each(function () {
+					let buttonWidth = $(this).outerWidth(true);
+					usedWidth += buttonWidth;
+					if (usedWidth > availableWidth) {
+						overflowItems.push(this);
+						$(this).addClass("hidden");
+					} else {
+						$(this).removeClass("hidden");
+					}
 				});
-			},
-			updateVisibility() {
-				const actionBar = this.$el;
-				const items = actionBar.querySelectorAll(
-					".action-bar-item:not(.overflow-menu-kebab)"
-				);
-				let totalWidth = 0;
-				const kebabWidth =
-					actionBar.querySelector(".overflow-menu-kebab")
-						.offsetWidth || 0;
-				const actionBarWidth = actionBar.clientWidth - kebabWidth;
-				items.forEach((item, index) => {
-					totalWidth += item.offsetWidth;
-					this.$set(
-						this.itemsVisibility,
-						item.textContent.trim(),
-						totalWidth <= actionBarWidth
-					);
-				});
-			},
-		}));
+
+			$overflowMenu.empty();
+			overflowItems.forEach((item) => {
+				let $clonedItem = $(item).clone().removeClass("hidden");
+				$overflowMenu.append($clonedItem);
+			});
+		}
+
+		$toggleButton.click(function () {
+			$overflowMenu.toggleClass("hidden");
+		});
+
+		$(window).resize(updateVisibility);
+		updateVisibility();
 	});
 </script>
