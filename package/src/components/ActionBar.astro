@@ -1,62 +1,75 @@
 ---
-// Import a unique ID generator
 import { v4 as uuidv4 } from 'uuid';
-const uniqueId = uuidv4(); // Generates a unique ID for each component instance
+const uniqueId = uuidv4(); 
 ---
 
 <div class="w-full outerMenu" data-unique-id={uniqueId}>
-<div class="inline-flex items-center overflow-hidden border mainMenu">
-	<!-- Sub-container for items 1-5 that allows wrapping -->
-	{
-		["item 1", "item 2", "item 3", "item 4", "item 5"].map((item, index) => (
-			<div class="m-1.5 flex-shrink-0 min-w-fit">
-				{item}
-			</div>
-		))
-	}
-	<a href="/link-for-item-6" class="m-1.5 flex-shrink-0 min-w-fit">Item 6</a>
-</div>
-</div>
+	<div class="inline-flex items-center overflow-hidden mainMenu">
+		<div id="main-item-1" class="m-1.5 min-w-fit">
+			Item 1
+		</div>
+		<div id="main-item-2" class="m-1.5 min-w-fit">
+			Item 2
+		</div>
+		<div id="main-item-3" class="m-1.5 min-w-fit">
+			Item 3
+		</div>
+		<div id="main-item-4" class="m-1.5 min-w-fit">
+			Item 4
+		</div>
+		<div id="main-item-5" class="m-1.5 min-w-fit">|</div> <!-- Divider element -->
+		<div id="main-item-6" class="m-1.5 min-w-fit">
+			Item 5
+		</div>
+		<a id="main-item-7" href="/link-for-item-6" class="m-1.5 min-w-fit">Item 6</a>
+	</div>
+	
+	<div class="flex flex-col overflowMenu">
+		<div id="overflow-item-1" class="m-1.5 hidden">Item 1</div>
+		<div id="overflow-item-2" class="m-1.5 hidden">Item 2</div>
+		<div id="overflow-item-3" class="m-1.5 hidden">Item 3</div>
+		<div id="overflow-item-4" class="m-1.5 hidden">Item 4</div>
+		<div id="overflow-item-5" class="divider m-1.5 hidden">|</div>
+		<div id="overflow-item-6" class="m-1.5 hidden">Item 5</div>
+	</div>
 
-<div class="flex flex-col overflowMenu">
-	{
-		["item 1", "item 2", "item 3", "item 4", "item 5"].map((item, index) => (
-			<div id={`overflow-item-${index}-${uniqueId}`} class="m-1.5 hidden">
-				{item}
-			</div>
-		))
-	}
-</div>
-
-<script>
-	import $ from "jquery";
-	$(document).ready(function () {
-		const uniqueId = $('.outerMenu').data('unique-id');
-		const mainMenu = $(`.outerMenu[data-unique-id="${uniqueId}"] .mainMenu`);
-		const overflowItems = $(`.overflowMenu div[id^="overflow-item-"][id$="${uniqueId}"]`);
-		const linkItem = mainMenu.children("a");
-
-		function checkVisibility() {
-			let availableWidth = $(`.outerMenu[data-unique-id="${uniqueId}"]`).outerWidth(true) - linkItem.outerWidth(true);
-			let usedWidth = 0;
-
-			mainMenu.children("div").each(function (index) {
-				const item = $(this);
-				const itemWidth = item.outerWidth(true);
-				if (usedWidth + itemWidth <= availableWidth) {
-					item.removeClass("hidden");
-					overflowItems.eq(index).addClass("hidden");
-					usedWidth += itemWidth;
-				} else {
-					item.addClass("hidden");
-					overflowItems.eq(index).removeClass("hidden");
-				}
-			});
-		}
-
-		const resizeObserver = new ResizeObserver(checkVisibility);
-		resizeObserver.observe($(`.outerMenu[data-unique-id="${uniqueId}"]`)[0]);
-
-		checkVisibility();
-	});
-</script>
+	<script>
+		import $ from "jquery";
+		$(document).ready(function () {
+			const uniqueId = $('.outerMenu').data('unique-id');
+			const mainMenu = $(`.outerMenu[data-unique-id="${uniqueId}"] .mainMenu`);
+			const overflowItems = $(`.overflowMenu div[id^="overflow-item-"]`);
+			const linkItem = mainMenu.children("a");
+	
+			function checkVisibility() {
+				let availableWidth = $(`.outerMenu[data-unique-id="${uniqueId}"]`).outerWidth(true) - linkItem.outerWidth(true);
+				let usedWidth = 0;
+				const items = mainMenu.children("div[id^='main-item-']");
+				let overflowStarted = false;
+	
+				items.each(function (index) {
+					const item = $(this);
+					if (!overflowStarted) {
+						const itemWidth = item.outerWidth(true);
+						if (usedWidth + itemWidth > availableWidth) {
+							overflowStarted = true;
+						} else {
+							usedWidth += itemWidth;
+						}
+					}
+					if (overflowStarted) {
+						item.addClass("hidden");
+						overflowItems.eq(index).removeClass("hidden");
+					} else {
+						item.removeClass("hidden");
+						overflowItems.eq(index).addClass("hidden");
+					}
+				});
+			}
+	
+			const resizeObserver = new ResizeObserver(checkVisibility);
+			resizeObserver.observe($(`.outerMenu[data-unique-id="${uniqueId}"]`)[0]);
+	
+			checkVisibility();
+		});
+	</script>
