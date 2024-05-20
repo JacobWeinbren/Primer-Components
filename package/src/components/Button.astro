@@ -11,7 +11,8 @@ const {
 	...props
 } = Astro.props;
 
-// Consolidated variant-specific classes with state handling
+const baseClasses = `border [box-shadow:var(--button-default-shadow-resting)] inline-flex items-center justify-center rounded-[--borderRadius-medium] focus-visible:ring-2 focus-visible:ring-[--focus-outlineColor] focus-visible:outline-none text-[0.875rem] font-semibold leading-[142.85%] white-space:nowrap overflow-hidden`;
+
 const variantClasses = {
 	primary: {
 		base: `bg-[--button-primary-bgColor-rest] border-[--button-primary-borderColor-rest] text-[--button-primary-fgColor-rest]`,
@@ -38,8 +39,6 @@ const variantClasses = {
 		active: "hover:text-[--button-invisible-fgColor-hover] hover:bg-[--button-invisible-bgColor-hover] hover:border-transparent active:bg-[--button-invisible-bgColor-active] active:border-transparent",
 	},
 };
-
-const baseClasses = `border [box-shadow:var(--button-default-shadow-resting)] inline-flex items-center justify-center rounded-[--borderRadius-medium] focus-visible:ring-2 focus-visible:ring-[--focus-outlineColor] focus-visible:outline-none text-[0.875rem] font-semibold leading-[142.85%] white-space:nowrap overflow-hidden`;
 
 const sizeClasses = {
 	large: "py-[--control-large-paddingBlock] px-[--control-large-paddingInline-spacious] text-[0.875rem] leading-[1.25rem] gap-[--control-large-gap]",

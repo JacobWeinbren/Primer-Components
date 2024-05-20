@@ -1,0 +1,10 @@
+---
+const { class: className, ...props } = Astro.props;
+---
+
+<button
+	class={`action-bar-item p-[--space-medium] flex-col items-center ${className}`}
+	{...props}
+>
+	<slot />
+</button>

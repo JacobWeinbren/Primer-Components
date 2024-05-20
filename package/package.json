@@ -9,6 +9,8 @@
 	"dependencies": {
 		"@primer/octicons": "^19.9.0",
 		"@primer/primitives": "^8.2.0",
+		"alpinejs": "^3.13.10",
+		"jquery": "^3.7.1",
 		"tailwind-merge": "^2.3.0"
 	},
 	"devDependencies": {
