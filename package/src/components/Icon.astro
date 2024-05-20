@@ -5,7 +5,7 @@ import spinnerSVG from "../assets/Spinner.svg?raw";
 const { iconName, iconClass = "" } = Astro.props;
 
 const getIconSVG = (iconName, iconClass) => {
-	if (iconName === "spinner") {
+	if (iconName === "loading") {
 		return `<span class="${iconClass}">${spinnerSVG}</span>`;
 	}
 	const svgClass = iconClass || "fill-current";

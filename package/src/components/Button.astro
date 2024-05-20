@@ -1,7 +1,5 @@
 ---
 import { twMerge } from "tailwind-merge";
-import octicons from "@primer/octicons";
-import spinnerSVG from "../assets/Spinner.svg?raw";
 import Icon from "./Icon.astro";
 
 const {
@@ -9,9 +7,7 @@ const {
 	size = "medium",
 	alignContent = "center",
 	variant = "secondary",
-	leadingVisual,
-	trailingVisual,
-	trailingAction,
+	icon,
 	...props
 } = Astro.props;
 
@@ -20,25 +16,25 @@ const variantClasses = {
 	primary: {
 		base: `bg-[--button-primary-bgColor-rest] border-[--button-primary-borderColor-rest] text-[--button-primary-fgColor-rest]`,
 		disabled:
-			"disabled:bg-[--button-primary-bgColor-disabled] disabled:border-[--button-primary-borderColor-disabled] disabled:text-[--button-primary-fgColor-disabled] disabled:cursor-not-allowed",
+			"bg-[--button-primary-bgColor-disabled] border-[--button-primary-borderColor-disabled] text-[--button-primary-fgColor-disabled] cursor-not-allowed",
 		active: "hover:text-[--button-primary-fgColor-rest] hover:bg-[--button-primary-bgColor-hover] hover:border-[--button-primary-borderColor-hover] hover:[box-shadow:var(--shadow-resting-small),var(--shadow-resting-xsmall)] active:bg-[--button-primary-bgColor-active] active:border-[--button-primary-borderColor-hover] active:[box-shadow:var(--shadow-inset)]",
 	},
 	secondary: {
 		base: `bg-[--button-default-bgColor-rest] border-[--button-default-borderColor-rest] text-[--button-default-fgColor-rest]`,
 		disabled:
-			"disabled:bg-[--button-default-bgColor-rest] disabled:border-[--button-default-borderColor-disabled] disabled:text-[--fgColor-disabled] disabled:cursor-not-allowed",
+			"bg-[--button-default-bgColor-rest] border-[--button-default-borderColor-disabled] text-[--fgColor-disabled] cursor-not-allowed",
 		active: "hover:text-[--button-default-fgColor-rest] hover:bg-[--button-default-bgColor-rest] hover:border-[--button-default-borderColor-hover] hover:[box-shadow:var(--shadow-resting-small),var(--shadow-resting-xsmall)] active:bg-[--button-default-bgColor-active] active:border-[--button-default-borderColor-hover] active:[box-shadow:var(--shadow-inset)]",
 	},
 	danger: {
 		base: `bg-[--button-default-bgColor-rest] border-[--button-danger-borderColor-rest] text-[--button-danger-fgColor-rest]`,
 		disabled:
-			"disabled:bg-[--button-danger-bgColor-disabled] disabled:border-transparent disabled:text-[--button-danger-fgColor-disabled] disabled:cursor-not-allowed",
+			"bg-[--button-danger-bgColor-disabled] border-transparent text-[--button-danger-fgColor-disabled] cursor-not-allowed",
 		active: "hover:text-[--button-danger-fgColor-hover] hover:bg-[--button-danger-bgColor-hover] hover:border-[--button-danger-borderColor-hover] hover:[box-shadow:var(--shadow-resting-small),var(--shadow-resting-xsmall)] active:bg-[--button-danger-bgColor-active] active:border-[--button-danger-borderColor-hover] active:[box-shadow:var(--shadow-inset)]",
 	},
 	invisible: {
 		base: `bg-[--button-invisible-bgColor-rest] border-transparent text-[--fgColor-link] [box-shadow:none]`,
 		disabled:
-			"disabled:bg-[--button-invisible-bgColor-disabled] disabled:border-transparent disabled:text-[--button-invisible-fgColor-disabled] disabled:cursor-not-allowed",
+			"bg-[--button-invisible-bgColor-disabled] border-transparent text-[--button-invisible-fgColor-disabled] cursor-not-allowed",
 		active: "hover:text-[--button-invisible-fgColor-hover] hover:bg-[--button-invisible-bgColor-hover] hover:border-transparent active:bg-[--button-invisible-bgColor-active] active:border-transparent",
 	},
 };
@@ -62,62 +58,57 @@ const alignClasses =
 		? `justify-start ${startWidths[size]}`
 		: "justify-center";
 
-const stateClasses = props.disabled
-	? variantClasses[variant].disabled
-	: props.inactive
-		? "bg-[--button-inactive-bgColor] text-[--button-inactive-fgColor]"
-		: variantClasses[variant].active;
-
-const getIconClass = (iconName) => {
-	if (iconName === "spinner") {
-		if (variant === "primary" && !props.inactive) {
-			return "text-[--button-primary-fgColor-rest]";
-		} else if (variant === "danger" && !props.inactive && !props.disabled) {
-			return "text-[--button-default-fgColor-rest] group-hover:text-[--button-danger-fgColor-hover]";
-		} else {
-			return "text-[--button-default-fgColor-rest]";
-		}
-	}
-	return variant === "invisible" ? "" : "fill-current";
-};
+const stateClasses =
+	props.disabled ||
+	icon?.leading === "loading" ||
+	icon?.trailing === "loading" ||
+	icon?.action === "loading"
+		? variantClasses[variant].disabled
+		: props.inactive
+			? "bg-[--button-inactive-bgColor] text-[--button-inactive-fgColor]"
+			: variantClasses[variant].active;
 ---
 
 <button
 	class={twMerge(
-		`group ${baseClasses} ${variantClasses[variant].base} ${sizeClasses[size]} ${alignClasses} ${stateClasses} ${className}`
+		`${baseClasses} ${variantClasses[variant].base} ${sizeClasses[size]} ${alignClasses} ${stateClasses} ${className}`
 	)}
 	{...props}
 	disabled={props.disabled}
+	aria-disabled={icon?.leading === "loading" ||
+	icon?.trailing === "loading" ||
+	icon?.action === "loading"
+		? "true"
+		: undefined}
 >
 	{
-		leadingVisual && (
+		icon?.leading && (
 			<span class="flex-shrink-0">
-				<Icon
-					iconName={leadingVisual}
-					iconClass={getIconClass(leadingVisual)}
-				/>
+				<Icon iconName={icon.leading} iconClass="fill-current" />
 			</span>
 		)
 	}
 	<slot class="flex-grow" />
 	{
-		trailingVisual && (
+		icon?.trailing && (
 			<span class="flex-shrink-0">
-				<Icon
-					iconName={trailingVisual}
-					iconClass={getIconClass(trailingVisual)}
-				/>
+				<Icon iconName={icon.trailing} iconClass="fill-current" />
 			</span>
 		)
 	}
 	{
-		trailingAction && (
+		icon?.action && (
 			<span class="ml-auto flex-shrink-0">
-				<Icon
-					iconName={trailingAction}
-					iconClass={getIconClass(trailingAction)}
-				/>
+				<Icon iconName={icon.action} iconClass="fill-current" />
 			</span>
 		)
 	}
 </button>
+
+{
+	props.loadingMessage ? (
+		<span class="sr-only" aria-live="polite">
+			{props.loadingMessage}
+		</span>
+	) : null
+}
