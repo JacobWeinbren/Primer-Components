@@ -5,22 +5,6 @@ const variants = ["primary", "secondary", "danger", "invisible"];
 const sizes = ["small", "medium", "large"];
 const alignments = ["center", "start"];
 const states = [null, "disabled", "inactive"];
-
-// Define a list of available icons
-const icons = [
-	"search",
-	"arrow-down",
-	"loading",
-	"plus",
-	"check",
-	"x",
-	"alert",
-	"info",
-	"gear",
-];
-
-// Function to get a random icon from the list
-const getRandomIcon = () => icons[Math.floor(Math.random() * icons.length)];
 ---
 
 <div class="flex flex-wrap gap-4 p-4">
@@ -35,9 +19,34 @@ const getRandomIcon = () => icons[Math.floor(Math.random() * icons.length)];
 								size={size}
 								alignContent={align}
 								icon={{
-									leading: getRandomIcon(),
-									trailing: getRandomIcon(),
-									action: getRandomIcon(),
+									leading: "plus",
+									trailing: "plus",
+									action: "plus",
+								}}
+								{...(state && { [state]: true })}
+							>
+								Button
+							</Button>
+						</div>
+					))
+				)
+			)
+		)
+	}
+	{
+		variants.map((variant) =>
+			alignments.map((align) =>
+				states.map((state) =>
+					sizes.map((size) => (
+						<div class="flex justify-center items-center">
+							<Button
+								variant={variant}
+								size={size}
+								alignContent={align}
+								icon={{
+									leading: "plus",
+									trailing: "plus",
+									action: "loading",
 								}}
 								{...(state && { [state]: true })}
 							>
